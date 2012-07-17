@@ -16,21 +16,3 @@
 /tmp
 #Ignore database settings file
 /config/database.yml
-=======
-*.rbc
-*.sassc
-.sass-cache
-capybara-*.html
-.rspec
-/.bundle
-/vendor/bundle
-/log/*
-/tmp/*
-/db/*.sqlite3
-/public/system/*
-/coverage/
-/spec/tmp/*
-**.orig
-rerun.txt
-pickle-email-*.html
->>>>>>> 5fb05fedc5bfc9326e1637f2dbbccdac3569c96e
