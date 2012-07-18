@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   def index
     by_field = params[:sort_by] || "id"
-    @clients = Client.order("#{by_field}")
+    @clients = Client.order("#{by_field} DESC" )
    # @clients = Client.all
   end
 
@@ -11,7 +11,8 @@ class ClientsController < ApplicationController
   def delete
   end
 
-  def update
+  def edit
+    @client = Client.find(params[:id])
   end
 
 end

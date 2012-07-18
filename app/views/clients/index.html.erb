@@ -3,9 +3,9 @@
 <table>
   <tr>
     <td>ID</td>
-    <td><%= link_to 'Company', clients_path(sort_by:"company") %></td> 
-    <td>Phone</td>
-    <td>Contact Person</td>
+    <td><%= link_to 'Company', clients_path(sort_by:"company",dir:"dsc") %></td> 
+    <td><%= link_to 'Phone', clients_path(sort_by:"phone_number") %></td>
+    <td><%= link_to 'Contact', clients_path(sort_by:"contact") %></td>
   </tr>
 <% @clients.each do |client|%>
   <tr>
@@ -13,6 +13,7 @@
   <td><%= client.company %></td>
   <td><%= client.phone_number %></td>
   <td><%= client.contact %></td>
+  <td><%= link_to 'Edit', edit_client_path(client) %></td>
   </tr>
 <% end %>
 </table>
