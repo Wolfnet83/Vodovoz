@@ -1,5 +1,5 @@
 Vodovoz::Application.routes.draw do
-  get "clients/list"
+  get "clients/index"
 
   get "clients/create"
 
@@ -21,7 +21,7 @@ Vodovoz::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
+    resources :clients
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -57,7 +57,7 @@ Vodovoz::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'clients#list'
+   root :to => 'clients#index'
 
   # See how all your routes lay out with "rake routes"
 
