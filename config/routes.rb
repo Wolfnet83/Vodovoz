@@ -7,6 +7,7 @@ Vodovoz::Application.routes.draw do
 
   get "clients/update"
 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -15,3 +15,5 @@
 /tmp
 #Ignore database settings file
 /config/database.yml
+#Ignore swp files of vim
+*.swp
