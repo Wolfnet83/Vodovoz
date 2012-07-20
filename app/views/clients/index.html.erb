@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
   <tr>
     <td>ID</td>
     <td><%= link_to 'Company', clients_path(sort_by:"company",dir:"dsc") %></td> 
@@ -11,7 +11,8 @@
   <td><%= client.company %></td>
   <td><%= client.phone_number %></td>
   <td><%= client.contact %></td>
-  <td><%= link_to 'Edit', edit_client_path(client) %></td>
+  <td><%= link_to 'Редактировать', edit_client_path(client) %></td>
+  <td><%= link_to 'Удалить', client, confirm: "Точно?", method: :delete%></td>
   </tr>
 <% end %>
 </table>

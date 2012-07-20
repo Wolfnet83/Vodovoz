@@ -15,22 +15,23 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Some Store</a>
+        <a class="brand" href="#">Водовоз</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><%= link_to "Browse Products", clients_path %></li>
-            <li><%= link_to "Price List" %></li>
-            <li><%= link_to "Contact Us" %></li>
-            <li><%= link_to "Cart" %></li>
+            <li><%= link_to "Таблица звонков" %></li>
+            <li><%= link_to "Отчеты" %></li>
+            <li><%= link_to "Справочник клиентов", clients_path %></li>
+            <li><%= link_to "Пропущенные звонки" %></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
+  <br><br> <br>
   <div class="container">
     <div class="row">
       <div class="span9">  <%= yield %> </div>
-      <div class="span3">;lfk;ldfkv;k</div>
+      <div class="span3"><%= link_to 'Новый клиент', new_client_path, :class => 'btn' %></div>
     </div>
   </div>
 </body>

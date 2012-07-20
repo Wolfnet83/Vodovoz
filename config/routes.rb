@@ -3,7 +3,7 @@ Vodovoz::Application.routes.draw do
 
   get "clients/create"
 
-  get "clients/delete"
+  delete "clients/delete"
 
   get "clients/update"
 
