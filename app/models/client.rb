@@ -1,3 +1,3 @@
 class Client < ActiveRecord::Base
-  set_table_name = "clients"
+  self.table_name = "clients"
 end
