@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-bottom">
     <div class="navbar-inner">
       <div class="container">
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -30,8 +30,8 @@
   <br><br> <br>
   <div class="container">
     <div class="row">
-      <div class="span9">  <%= yield %> </div>
-      <div class="span3"><%= link_to 'Новый клиент', new_client_path, :class => 'btn' %></div>
+      <div class="span8">  <%= yield %> </div>
+      <div class="span2 offset2"><%= link_to 'Новый клиент', new_client_path, :class => 'btn' %></div>
     </div>
   </div>
 </body>
