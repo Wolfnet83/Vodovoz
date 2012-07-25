@@ -1,8 +1,6 @@
 ﻿class ClientsController < ApplicationController
   def index
     by_field = params[:sort_by] || "id"
-   # dir = "ASC" || "DESC"
-   # if @dir then dir="ASC" else dir="DESC"
     @clients = Client.order("#{by_field} #{params[:dir]}" )
    # @clients = Client.all
   end
