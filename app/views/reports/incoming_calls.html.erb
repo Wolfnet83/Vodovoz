@@ -1,4 +1,4 @@
-<%=form_tag do %>
+<%=form_tag '/reports/incoming_calls',:class => "well form-inline" do %>
   <%= label_tag(:from, "С даты", :class => "span3")%>
   <%= text_field_tag(:from, @date_from)%>
   <%= label_tag(:to, "По дату", :class => "span3")%>
@@ -13,14 +13,17 @@
   <%= radio_button_tag(:group_by, "week(calldate)")%>
   <%= label_tag(:daily, "Группировка по дням")%>
   <%= radio_button_tag(:group_by, "date(calldate)", true)%>
-  <%= submit_tag("Понеслась", :class => 'btn')%>
+  <%= submit_tag("Выбрать", :class => 'btn')%>
 <% end %>
-<%= @date_from %>
 <table class="table table-striped table-bordered table-condensed">
-<% @calls.each do |call|%>
+  <thead>
+    <th>Дата</th>
+    <th>Количество звонков</th>
+  </thead>
+<% @calls.each do |date, count|%>
   <tr>
-  <td><%= call.src %></td>
-  <td><%#= call.count_src %></td>
+  <td><%= date %></td>
+  <td><%= count %></td>
   </tr>
 <% end %>
 </table>
