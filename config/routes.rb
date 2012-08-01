@@ -13,6 +13,16 @@ Vodovoz::Application.routes.draw do
 
   post "reports/incoming_calls"
 
+  get "reports/main_report"
+
+  post "reports/main_report"
+
+  get   "calls/index"
+
+  post "calls/index"
+
+  post "calls/page_select"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -28,6 +38,7 @@ Vodovoz::Application.routes.draw do
   #   resources :products
     resources :clients
     resources :reports
+    resources :calls
   # Sample resource route with options:
   #   resources :products do
   #     member do
