@@ -13,7 +13,7 @@
 
 <div class="pagination pagination-centered">
   <ul>
-    <% for page in @page-3..@page+3 %>
+    <% for page in @page_from..@page_to %>
       <% if page==@page %>
         <li class="active"><%=link_to page,:from => @date_from, :to => @date_to, :page => page , :src => @src, :dst => @dst %></li>
       <% else %>
@@ -41,7 +41,7 @@
   <td><%= call.dst %></td>
   <td><%= call.disposition %></td>
   <td><%= call.duration %></td>
-  <td><%= link_to 'Запись разговора', call.uniqueid %></td>
+  <td><%= link_to call.linkname,call.link %></td>
   </tr>
 <% end %>
 </table>
