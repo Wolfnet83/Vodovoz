@@ -4,9 +4,23 @@
     t = Time.now.strftime("%Y-%m-%d")
     @date_from = params[:from].presence || t
     @date_to = params[:to].presence || t
+    @src = params[:src].presence 
+    @dst = params[:dst].presence 
     @page = params[:page].presence || 0
+
+    where_clause = "date(calldate) >= ? and date(calldate) <= ?"
+    where_clause += " AND src=?" if params[:src].presence
+    where_clause += " AND dst=?" if params[:dst].presence
+    where_with_params = where_clause,@date_from,@date_to,@src,@dst
+    where_with_params.compact!
+
+    logger.info "*"*80
+    logger.info where_clause.inspect
+    logger.info "*"*80
+
+    #Realising pagination
+    count=CDR::Call.where(where_with_params).count
     @page = @page.to_i
-    count=CDR::Call.where(:calldate =>(@date_from..@date_to)).count
     @pages = count/50.round
     if @page>=3 then @page_from=@page-3 
     else
@@ -16,16 +30,15 @@
     else
       @page_to=@pages
     end
-    @calls=CDR::Call.where(:calldate =>(@date_from..@date_to)).limit(50).offset(@page*50)
+
+
+    @calls=CDR::Call.where(where_with_params).limit(50).offset(@page*50)
     @monitor_files=Array.new
     open('http://10.0.0.203/monitor_files.txt') {|f| @monitor_files = f.to_a }
 
     @calls.each do |call|
       if call.disposition == "ANSWERED" then call.disposition ="Отвечен";end
       filename = @monitor_files.select{|f| f.include?call.uniqueid}.compact
-
-      logger.info filename.inspect
-
       if !filename.empty? then 
         call.link = "http://10.0.0.203/maint/cache/monitor/"+filename.to_s[2..-5] 
         call.linkname = "Запись разговора"
