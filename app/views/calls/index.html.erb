@@ -1,11 +1,13 @@
 <%=form_tag '/calls/index',:method => "get",:class => "well form-inline" do %>
   <%= label_tag(:from, "С даты", :class => "span3")%>
   <%= text_field_tag(:from, @date_from)%>
+  <br>
   <%= label_tag(:to, "По дату", :class => "span3")%>
   <%= text_field_tag(:to, @date_to)%>
   <br>
   <%= label_tag(:src, "Кто звонил", :class => "span3")%>
   <%= text_field_tag(:src, @src)%>
+  <br>
   <%= label_tag(:dst, "Куда звонил", :class => "span3")%>
   <%= text_field_tag(:dst, @dst)%>
   <%= submit_tag("Выбрать", :class => 'btn')%>
@@ -30,7 +32,7 @@
     <th>Кто звонил</th> 
     <th>Куда звонил</th>
     <th>Статус</th>
-    <th>Продолжительность</th>
+    <th class="span1">Продолжительность</th>
     <th>Запись</th>
   </tr>
   </thead>
@@ -45,3 +47,15 @@
   </tr>
 <% end %>
 </table>
+
+<div class="pagination pagination-centered">
+  <ul>
+    <% for page in @page_from..@page_to %>
+      <% if page==@page %>
+        <li class="active"><%=link_to page,:from => @date_from, :to => @date_to, :page => page , :src => @src, :dst => @dst %></li>
+      <% else %>
+          <li><%=link_to page,:from => @date_from, :to => @date_to, :page => page , :src => @src, :dst => @dst %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

@@ -14,10 +14,6 @@
     where_with_params = where_clause,@date_from,@date_to,@src,@dst
     where_with_params.compact!
 
-    logger.info "*"*80
-    logger.info where_clause.inspect
-    logger.info "*"*80
-
     #Realising pagination
     count=CDR::Call.where(where_with_params).count
     @page = @page.to_i
@@ -33,8 +29,11 @@
 
 
     @calls=CDR::Call.where(where_with_params).limit(50).offset(@page*50)
+
+    date = @date_to.to_s[0..-4].delete"-"
+    
     @monitor_files=Array.new
-    open('http://10.0.0.203/monitor_files.txt') {|f| @monitor_files = f.to_a }
+    open("http://10.0.0.203/monitor_files"+date+".txt") {|f| @monitor_files = f.to_a }
 
     @calls.each do |call|
       if call.disposition == "ANSWERED" then call.disposition ="Отвечен";end

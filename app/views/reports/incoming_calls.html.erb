@@ -1,8 +1,10 @@
 <%=form_tag '/reports/incoming_calls',:class => "well form-inline" do %>
   <%= label_tag(:from, "С даты", :class => "span3")%>
   <%= text_field_tag(:from, @date_from)%>
+  <br>
   <%= label_tag(:to, "По дату", :class => "span3")%>
   <%= text_field_tag(:to, @date_to)%>
+  <br>
   <%= label_tag(:duration, "Продолжительность звонка", :class => "span3")%>
   <%= text_field_tag(:duration, @call_duration)%>
   <br>
