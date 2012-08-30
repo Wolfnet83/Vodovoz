@@ -1,6 +1,6 @@
-<h1>Clients#create</h1>
-<p>Find me in app/views/clients/create.html.erb</p>
 <%= form_for (@client) do |client|%>
+  <%= client.error_messages %>
+  <p>
   <%= client.label "Компания" %>
   <%= client.text_field :company%>
   <%= client.label "Номер телефона" %>
@@ -9,3 +9,4 @@
   <%= client.text_field :contact%>
   <%= client.submit :class => "btn"%>
   <% end %>
+  </p>

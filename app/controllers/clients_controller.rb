@@ -11,8 +11,11 @@
 
   def create
     @client = Client.new(params[:client])
-    @client.save
-    redirect_to @client, notice: "Клиент создан"
+    if @client.save
+      redirect_to @client, notice: "Клиент создан"
+    else
+      render "new"
+    end
   end
 
   def destroy

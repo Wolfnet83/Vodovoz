@@ -18,7 +18,7 @@ class MissedCallsController < ApplicationController
     end
     arr=arr.to_s[1..-2]
     query = " select time(calldate) as my_time,src,billsec from asteriskcdrdb.cdr where dst=111 
-    and hour(calldate)=#{@hour} and date(calldate)=\"#{@date}\" and src in (#{arr})";
+    and hour(calldate)=#{@hour} and date(calldate)=\"#{@date}\"";# and src in (#{arr})";
     @calls = CDR::Call.find_by_sql(query)
     logger.info "*"*80
     logger.info @calls.inspect
