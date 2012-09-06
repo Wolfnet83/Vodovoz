@@ -8,7 +8,7 @@
     @src = params[:src].presence 
     @dst = params[:dst].presence 
 
-    where_clause = "date(calldate) >= ? and date(calldate) <= ?"
+    where_clause = "date(calldate) >= ? and date(calldate) <= ? AND dst NOT BETWEEN 300 AND 399"
     where_clause += " AND src=?" if params[:src].presence
     where_clause += " AND dst=?" if params[:dst].presence
     where_with_params = where_clause,@date_from,@date_to,@src,@dst

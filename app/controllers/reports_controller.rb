@@ -5,9 +5,6 @@
   def incoming_calls
     t = Time.now.strftime("%Y-%m-%d")
     @date_from = params[:from].presence || t
-    #logger.info "*" * 80
-    #logger.info @date_from.inspect
-    #logger.info "*" * 80
     @date_to = params[:to].presence || t
     @call_duration = params[:duration].presence || 60
     group_by = params[:group_by] || "date(calldate)"
@@ -20,6 +17,7 @@
     group_by = params[:group_by] || "day"
     if group_by == "day"  
       @date_column = "Час"
+=begin
     query ="select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
     from(
       select hour(A.calldate) as h,1 as c1, 0 as c2,0 as c3
@@ -41,6 +39,7 @@
       and billsec > 5
       and dcontext = 'from-internal') as Q
      group by h"
+=end
     elsif group_by == "week"
       @date_column = "День недели"
     query ="
