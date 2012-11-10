@@ -23,6 +23,9 @@
             <li><%= link_to "Справочник клиентов", clients_path %></li>
             <li><%= link_to "Пропущенные звонки", missed_calls_path %></li>
           </ul>
+          <ul class="nav pull-right">
+            <li ><%= render 'devise/menu/login_items' %></li>
+          </ul>
         </div>
       </div>
     </div>

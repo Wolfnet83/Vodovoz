@@ -1,4 +1,6 @@
 Vodovoz::Application.routes.draw do
+  devise_for :users
+
   get "missed_calls/index"
 
   get "clients/index"

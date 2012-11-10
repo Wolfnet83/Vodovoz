@@ -1,4 +1,6 @@
 class MissedCallsController < ApplicationController
+
+  before_filter :authenticate_user!
   def index
     t = Time.now.strftime("%Y-%m-%d")
     h = Time.now.hour

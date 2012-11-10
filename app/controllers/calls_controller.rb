@@ -1,4 +1,5 @@
 ﻿class CallsController < ApplicationController
+  before_filter :authenticate_user!
   def index
     @title = "Таблица звонков"
     require 'open-uri'

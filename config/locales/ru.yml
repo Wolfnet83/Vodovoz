@@ -1,0 +1,18 @@
+ru:
+  submit: "Войти"
+  login:  "Войти"
+  logout: "Выйти"
+  helpers:
+    label:
+      user:
+        username: "Имя пользователя"
+        password: "Пароль"
+        remember_me: "Запомнить меня"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Почтовый адрес пуст"
+            

@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  helpers:
+   label:
+    user:
+     username: "Username"
+     password: "Password"

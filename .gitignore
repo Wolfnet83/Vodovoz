@@ -15,5 +15,8 @@
 /tmp
 #Ignore database settings file
 /config/database.yml
+#Ignore ldap settings file
+/config/ldap.yml
 #Ignore swp files of vim
 *.swp
+*.swo
