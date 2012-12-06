@@ -8,6 +8,7 @@ gem 'rails', '~> 3.2.1'
 gem 'sqlite3'
 gem 'mysql2'
 gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 gem 'dynamic_form'
 gem 'less-rails'
 # Gems used only for assets and not required
@@ -19,6 +20,7 @@ group :assets do
   gem 'therubyracer'
   gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-ui-rails'
 end
 
 group :development, :test do
@@ -32,6 +34,7 @@ group :test do
   gem 'capybara', "~> 1.1.2"
   gem 'database_cleaner', "~> 0.7.2"
   gem 'launchy', "~> 2.1.0"
+  gem 'spork'
 end
 
 gem 'jquery-rails'

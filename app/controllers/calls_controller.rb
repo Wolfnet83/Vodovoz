@@ -4,8 +4,8 @@
     @title = "Таблица звонков"
     require 'open-uri'
     t = Time.now.strftime("%Y-%m-%d")
-    @date_from = params[:from].presence || t
-    @date_to = params[:to].presence || t
+    @date_from = params[:call_from].presence || t
+    @date_to = params[:call_to].presence || t
     @src = params[:src].presence 
     @dst = params[:dst].presence 
 

@@ -1,9 +1,9 @@
 <%=form_tag '/calls/index',:method => "get",:class => "well form-inline" do %>
-  <%= label_tag(:from, "С даты", :class => "span3")%>
-  <%= text_field_tag(:from, @date_from)%>
+  <%= label_tag(:call_from, "С даты", :class => "span3")%>
+  <%= text_field_tag(:call_from, @date_from)%>
   <br>
-  <%= label_tag(:to, "По дату", :class => "span3")%>
-  <%= text_field_tag(:to, @date_to)%>
+  <%= label_tag(:call_to, "По дату", :class => "span3")%>
+  <%= text_field_tag(:call_to, @date_to)%>
   <br>
   <%= label_tag(:src, "Кто звонил", :class => "span3")%>
   <%= text_field_tag(:src, @src)%>
@@ -33,10 +33,9 @@
   <td><%= call.dst %></td>
   <td><%= call.disposition %></td>
   <td><%= call.duration %></td>
-  <td><%= link_to call.linkname,call.link %></td>
+  <td><%= link_to call.linkname,call.link, :target => :_blanc %></td>
   </tr>
 <% end %>
 </table>
 
 <%= paginate @calls %>
-
