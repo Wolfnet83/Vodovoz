@@ -9,7 +9,7 @@
     @src = params[:src].presence 
     @dst = params[:dst].presence 
 
-    where_clause = "date(calldate) >= ? and date(calldate) <= ? AND dst NOT BETWEEN 300 AND 399"
+    where_clause = "date(calldate) >= ? and date(calldate) <= ? AND (billsec>0 or src between 300 and 399) and (dst<>111 or dstchannel='')"
     where_clause += " AND src=?" if params[:src].presence
     where_clause += " AND dst=?" if params[:dst].presence
     where_with_params = where_clause,@date_from,@date_to,@src,@dst
@@ -22,15 +22,17 @@
     open("http://10.0.0.203/monitor_files"+@monitor_date+".txt") {|f| @monitor_files = f.to_a }
 
     @calls.each do |call|
-      if call.disposition == "ANSWERED" then call.disposition ="Отвечен";end
-      filename = @monitor_files.select{|f| f.include?call.uniqueid}.compact
 
+      filename = @monitor_files.select{|f| f.include?call.uniqueid}.compact
       if !filename.empty? then 
         call.link = "http://10.0.0.203/maint/cache/monitor/"+filename.to_s[2..-5] 
         call.linkname = "Запись разговора"
-      else
-        call.link = "No record"
-        call.linkname = "Нет записи"
+      elsif call.disposition == "ANSWERED" and !call.userfield.empty? then
+          call.link = "http://10.0.0.203/maint/cache/monitor/"+call.userfield
+          call.linkname = "Прослушать"
+        else
+          call.link = "No record"
+          call.linkname = "Нет записи"
       end
     end
   end
