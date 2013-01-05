@@ -18,14 +18,12 @@
     @calls=CDR::Call.where(where_with_params).page params[:page]
 
     @monitor_date = @date_to.to_s[0..-4].delete"-"
-#    @monitor_files=Array.new
-#    open("http://10.0.0.203/monitor_files"+@monitor_date+".txt") {|f| @monitor_files = f.to_a }
+    @monitor_files=Array.new
+    open("http://10.0.0.203/monitor_files"+@monitor_date+".txt") {|f| @monitor_files = f.to_a }
 
     @calls.each do |call|
       if call.disposition == "ANSWERED" then call.disposition ="Отвечен";end
-#      filename = @monitor_files.select{|f| f.include?call.uniqueid}.compact
-#      filename = monitorfiles2mysql.where("filenames like %?%", call.uniqueid) 
-      filename = Filename.where("filenames like \"%#{call.uniqueid}%\"")
+      filename = @monitor_files.select{|f| f.include?call.uniqueid}.compact
 
       if !filename.empty? then 
         call.link = "http://10.0.0.203/maint/cache/monitor/"+filename.to_s[2..-5] 
