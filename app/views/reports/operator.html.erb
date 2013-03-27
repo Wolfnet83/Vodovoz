@@ -1,0 +1,21 @@
+<%=form_tag '/reports/operator',:class => "well form-inline" do %>
+  <%= label_tag(:date, "Дата", :class => "span3")%>
+  <%= text_field_tag(:date, @date)%>
+  <br>
+  <%= label_tag(:op_number, "Номер оператора", :class => "span3")%>
+  <%= text_field_tag(:op_number, @op_number)%>
+  <%= submit_tag("Выбрать", :class => 'btn')%>
+<% end %>
+<table class="table table-striped table-bordered table-condensed">
+  <thead>
+    <th>Всего звонков</th>
+    <th>Принятых звонков</th>
+    <th>Сделанных звонков</th>
+  </thead>
+
+  <tr>
+    <td><%= @calls_in + @calls_out %></td>
+    <td><%= @calls_in %></td>
+    <td><%= @calls_out %></td>
+  </tr>
+</table>

@@ -17,9 +17,13 @@
 
     @calls=CDR::Call.where(where_with_params).page params[:page]
 
-    @monitor_date = @date_to.to_s[0..-4].delete"-"
-    @monitor_files=Array.new
-    open("http://10.0.0.203/monitor_files"+@monitor_date+".txt") {|f| @monitor_files = f.to_a }
+    begin
+      @monitor_date = @date_to.to_s[0..-4].delete"-"
+      @monitor_files=Array.new
+      datename="http://10.0.0.203/monitor_files"+@monitor_date+".txt"
+        open(datename) {|f| @monitor_files = f.to_a }
+      rescue
+    end
 
     @calls.each do |call|
 

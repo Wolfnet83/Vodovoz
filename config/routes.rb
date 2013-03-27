@@ -21,6 +21,10 @@ Vodovoz::Application.routes.draw do
 
   post "reports/main_report"
 
+  get "reports/operator"
+
+  post "reports/operator"
+
   get   "calls/index"
 
   post "calls/index"

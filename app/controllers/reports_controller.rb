@@ -90,4 +90,9 @@
     end
      @calls = CDR::Call.find_by_sql(query)
   end
+
+  def operator
+    @calls_in = CDR::Call.where("date(calldate)=? AND dst=? and disposition = 'ANSWERED'", params[:date], params[:op_number]).count
+    @calls_out = CDR::Call.where("date(calldate)=? AND src=?", params[:date], params[:op_number]).count
+  end
 end
