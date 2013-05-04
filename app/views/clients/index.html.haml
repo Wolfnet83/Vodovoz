@@ -1,0 +1,17 @@
+= link_to 'Новый клиент', new_client_path,:class => 'btn'
+%br/
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th ID
+      %th= link_to 'Company', clients_path(sort_by:"company", :dir => ("desc" unless params[:dir].present?))
+      %th= link_to 'Phone', clients_path(sort_by:"phone_number", :dir => ("desc" unless params[:dir].present?))
+      %th= link_to 'Contact', clients_path(sort_by:"contact", :dir => ("desc" unless params[:dir].present?))
+  - @clients.each do |client|
+    %tr
+      %td= client.id
+      %td= client.company
+      %td= client.phone_number
+      %td= client.contact
+      %td= link_to 'Редактировать', edit_client_path(client)
+      %td= link_to 'Удалить', client, confirm: "Точно?", method: :delete

@@ -1,0 +1,31 @@
+= form_tag '/reports/main_report',:class => "well form-inline" do
+  %p.lead
+    Внимание! В отчете учитываются только звонки совершенные в период с 8:00 до 18:00, в рабочие дни.
+  = label_tag(:date, "Дата", :class => "span3")
+  = text_field_tag(:date, @date)
+  .row
+    = label_tag(:monthly, "Месячная группировка", :class => "span4")
+    = radio_button_tag(:group_by, "month", :class => "span2")
+  .row
+    = label_tag(:weekly, "Просмотр недели", :class => "span4")
+    = radio_button_tag(:group_by, "week", :class => "span2")
+  .row
+    = label_tag(:daily, "Просмотр дня по часам", :class => "span4")
+    = radio_button_tag(:group_by, "day", :class => "span2")
+  = submit_tag("Выбрать", :class => 'btn')
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %th= @date_column
+    %th Всего звонков
+    %th Входящих звонков
+    %th Исходящих звонков
+    %th Принятых звонков
+    %th Пропущенных звонков
+  - @calls.each do |call|
+    %tr
+      %td= call.time
+      %td= call.quantity_all.round
+      %td= call.quantity_in.round
+      %td= call.quantity_out.round
+      %td= call.received.round
+      %td= call.missed.round

@@ -1,0 +1,18 @@
+= form_tag '/missed_calls/index',:method => "get",:class => "well form-inline" do
+  = label_tag(:date, "Дата", :class => "span3")
+  = text_field_tag(:date, @date)
+  %br/
+  = label_tag(:hour, "Час", :class => "span3")
+  = text_field_tag(:hour, @hour)
+  = submit_tag("Выбрать", :class => 'btn')
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Время
+      %th Номер пропущенного звонка
+      %th Продолжительность
+  - @calls.each do |call|
+    %tr
+      %td= call.calldate
+      %td= call.src
+      %td= call.billsec

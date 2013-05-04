@@ -1,0 +1,32 @@
+= form_tag '/calls/index',:method => "get",:class => "well form-inline" do
+  = label_tag(:call_from, "С даты", :class => "span3")
+  = text_field_tag(:call_from, @date_from)
+  %br/
+  = label_tag(:call_to, "По дату", :class => "span3")
+  = text_field_tag(:call_to, @date_to)
+  %br/
+  = label_tag(:src, "Кто звонил", :class => "span3")
+  = text_field_tag(:src, @src)
+  %br/
+  = label_tag(:dst, "Куда звонил", :class => "span3")
+  = text_field_tag(:dst, @dst)
+  = submit_tag("Выбрать", :class => 'btn')
+= paginate @calls
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Дата
+      %th Кто звонил
+      %th Куда звонил
+      %th Статус
+      %th.span1 Продолжительность
+      %th Запись
+  - @calls.each do |call|
+    %tr{:class => " #{call.disposition == "ANSWERED" ?"success":"error"}"}
+      %td= call.calldate
+      %td= call.clid
+      %td= call.dst
+      %td= call.disposition
+      %td= call.duration
+      %td= link_to call.linkname,call.link, :target => :_blanc
+= paginate @calls

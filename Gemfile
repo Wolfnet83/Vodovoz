@@ -52,8 +52,10 @@ gem 'jquery-rails'
 gem 'capistrano'
 
 gem 'devise'
-#gem 'devise-i18n'
 gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"
 gem 'net-ldap'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'haml-rails'
+gem 'html2haml'
+gem 'erb2haml'
