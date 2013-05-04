@@ -5,3 +5,9 @@ jQuery ->
   $('#date').datepicker
         dateFormat: $.datepicker.ISO_8601, 
         firstDay:1
+  $('#date_from').datepicker
+        dateFormat: $.datepicker.ISO_8601, 
+        firstDay:1
+  $('#date_to').datepicker
+        dateFormat: $.datepicker.ISO_8601, 
+        firstDay:1

@@ -1,7 +1,9 @@
 <%=form_tag '/reports/main_report',:class => "well form-inline" do %>
+  <p class="lead">
+    Внимание! В отчете учитываются только звонки совершенные в период с 8:00 до 18:00, в рабочие дни.
+  </p>
   <%= label_tag(:date, "Дата", :class => "span3")%>
   <%= text_field_tag(:date, @date)%>
-  <br>
   <div class="row">
   <%= label_tag(:monthly, "Месячная группировка", :class => "span4")%>
   <%= radio_button_tag(:group_by, "month", :class => "span2")%>

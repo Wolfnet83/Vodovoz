@@ -16,24 +16,26 @@
     t = Time.now.strftime("%Y-%m-%d")
     @date = params[:date].presence || t
     group_by = params[:group_by] || "day"
+
     if group_by == "day"  
       @date_column = "Час"
     query ="select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
     from(
       select hour(A.calldate) as h,1 as c1, 0 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as A
-      where date(A.calldate)=\'#{@date}\'
+      where date(A.calldate)=\'#{@date}\' AND hour(A.calldate) BETWEEN '8' AND '17'
       and dst =111
      union all
       select hour(calldate) as h,0 as c1,1 as c2,0 as c3
       from `asteriskcdrdb`.`cdr`
-      where date(calldate)=\'#{@date}' 
+      where date(calldate)=\'#{@date}' AND hour(calldate) BETWEEN '8' AND '17'
       and src between 300 and 399
       and (dcontext = 'vodovoz-department' or dcontext = 'from-internal')
      union all
       select hour(B.calldate) as h,0 as c1,0 as c2,1 as c3
       from `asteriskcdrdb`.`cdr` as B
-      where date(B.calldate)=\'#{@date}\'
+      where date(B.calldate)=\'#{@date}\' AND hour(B.calldate) BETWEEN '8' AND '17'
+
       and dst between 300 and 399
       and disposition = 'ANSWERED'
       and (dcontext = 'vodovoz-department' or dcontext = 'from-internal')) as Q
@@ -47,12 +49,14 @@
       from `asteriskcdrdb`.`cdr` as A
       where week(A.calldate,1)=week(\'#{@date}\',1)
       and year(A.calldate)=year(\'#{@date}\')
+      AND hour(A.calldate) BETWEEN '8' AND '17'
       and dst =111
      union all
       select day(C.calldate) as h,0 as c1,1 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as C
       where week(C.calldate,1)=week(\'#{@date}\',1)
       and year(C.calldate)=year(\'#{@date}\')
+      AND hour(C.calldate) BETWEEN '8' AND '17'
       and src between 300 and 399
       and (dcontext = 'vodovoz-department' or dcontext='from-internal')
      union all
@@ -60,6 +64,7 @@
       from `asteriskcdrdb`.`cdr` as B
       where week(B.calldate,1)=week(\'#{@date}\',1)
       and year(B.calldate)=year(\'#{@date}\')
+      AND hour(B.calldate) BETWEEN '8' AND '17'
       and dst between 300 and 399
       and disposition = 'ANSWERED'
       and (dcontext = 'vodovoz-department' or dcontext='from-internal')) as Q
@@ -72,17 +77,23 @@
       select month(A.calldate) as h,1 as c1, 0 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as A
       where year(A.calldate)=year(\'#{@date}\')
+      AND hour(A.calldate) BETWEEN '8' AND '17'
+      AND dayofweek(A.calldate) <> '1'
       and dst =111
      union all
       select month(C.calldate) as h,0 as c1,1 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as C
       where year(C.calldate)=year(\'#{@date}\')
+      AND hour(C.calldate) BETWEEN '8' AND '17'
+      AND dayofweek(C.calldate) <> '1'
       and src between 300 and 399
       and (dcontext = 'vodovoz-department' or dcontext='from-internal')
      union all
       select month(B.calldate) as h,0 as c1,0 as c2,1 as c3
       from `asteriskcdrdb`.`cdr` as B
       where year(B.calldate)=year(\'#{@date}\')
+      AND hour(B.calldate) BETWEEN '8' AND '17'
+      AND dayofweek(B.calldate) <> '1'
       and dst between 300 and 399
       and disposition = 'ANSWERED'
       and (dcontext = 'vodovoz-department' or dcontext='from-internal')) as Q
@@ -92,7 +103,7 @@
   end
 
   def operator
-    @calls_in = CDR::Call.where("date(calldate)=? AND dst=? and disposition = 'ANSWERED'", params[:date], params[:op_number]).count
-    @calls_out = CDR::Call.where("date(calldate)=? AND src=?", params[:date], params[:op_number]).count
+    @calls_in = CDR::Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=? and disposition = 'ANSWERED'", params[:date_from], params[:date_to], params[:op_number]).count
+    @calls_out = CDR::Call.where("date(calldate)>=? AND date(calldate)<=? AND src=?", params[:date_from], params[:date_to], params[:op_number]).count
   end
 end

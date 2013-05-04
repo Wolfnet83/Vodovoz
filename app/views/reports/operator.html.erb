@@ -1,6 +1,9 @@
 <%=form_tag '/reports/operator',:class => "well form-inline" do %>
-  <%= label_tag(:date, "Дата", :class => "span3")%>
-  <%= text_field_tag(:date, @date)%>
+  <%= label_tag(:date_from, "Начало периода", :class => "span3")%>
+  <%= text_field_tag(:date_from, @date_from)%>
+  <br>
+  <%= label_tag(:date_to, "Конец периода", :class => "span3")%>
+  <%= text_field_tag(:date_to, @date_to)%>
   <br>
   <%= label_tag(:op_number, "Номер оператора", :class => "span3")%>
   <%= text_field_tag(:op_number, @op_number)%>
