@@ -3,7 +3,7 @@ require 'bundler/capistrano'
 set :application, "vodovoz"
 set :repository, "git@github.com:Wolfnet83/Vodovoz.git"
 set :branch, "master"
-server "10.0.0.222", :web, :app, :db, :primary => true
+server "10.0.0.226", :web, :app, :db, :primary => true
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

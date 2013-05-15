@@ -1,9 +1,9 @@
 ﻿class CallsController < ApplicationController
   before_filter :authenticate_user!
+
   def index
     @title = "Таблица звонков"
-    require 'open-uri'
-    t = Time.now.strftime("%Y-%m-%d")
+    t = Date.today.to_formatted_s(:db)
     @date_from = params[:call_from].presence || t
     @date_to = params[:call_to].presence || t
     @src = params[:src].presence 

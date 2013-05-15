@@ -27,6 +27,8 @@ group :development, :test do
   gem 'rspec-rails', "~> 2.10.1"
   gem 'factory_girl_rails', "~> 3.2.0"
   gem 'guard-rspec', "~> 0.7.0"
+  gem 'html2haml'
+  gem 'erb2haml'
 end
 
 group :test do
@@ -57,5 +59,3 @@ gem 'net-ldap'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'haml-rails'
-gem 'html2haml'
-gem 'erb2haml'
