@@ -8,10 +8,8 @@ class MissedCallsController < ApplicationController
     @hour = params[:hour].presence || h
 
     query = " select calldate,src,billsec from asteriskcdrdb.cdr where dst=111 
-    and hour(calldate)=#{@hour} and date(calldate)=\"#{@date}\" and dstchannel=''";# and src in (#{arr})";
-    @calls = CDR::Call.find_by_sql(query)
-    logger.info "*"*80
-    logger.info @calls.inspect
-    logger.info "*"*80
-  end
+    and hour(calldate)=#{@hour} and date(calldate)=\"#{@date}\" and
+    dstchannel=''" 
+    @calls = CDR::Call.find_by_sql(query) 
+  end 
 end

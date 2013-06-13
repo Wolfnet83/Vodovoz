@@ -35,10 +35,9 @@
       select hour(B.calldate) as h,0 as c1,0 as c2,1 as c3
       from `asteriskcdrdb`.`cdr` as B
       where date(B.calldate)=\'#{@date}\' AND hour(B.calldate) BETWEEN '8' AND '17'
-
       and dst between 300 and 399
-      and disposition = 'ANSWERED'
-      and (dcontext = 'vodovoz-department' or dcontext = 'from-internal')) as Q
+      and src not between 300 and 399
+      and disposition = 'ANSWERED') as Q
      group by h"
     elsif group_by == "week"
       @date_column = "День недели"
@@ -66,8 +65,8 @@
       and year(B.calldate)=year(\'#{@date}\')
       AND hour(B.calldate) BETWEEN '8' AND '17'
       and dst between 300 and 399
-      and disposition = 'ANSWERED'
-      and (dcontext = 'vodovoz-department' or dcontext='from-internal')) as Q
+      and src not between 300 and 399
+      and disposition = 'ANSWERED') as Q
      group by h;"
     else 
       @date_column = "Месяц"
@@ -95,8 +94,8 @@
       AND hour(B.calldate) BETWEEN '8' AND '17'
       AND dayofweek(B.calldate) <> '1'
       and dst between 300 and 399
-      and disposition = 'ANSWERED'
-      and (dcontext = 'vodovoz-department' or dcontext='from-internal')) as Q
+      and src not between 300 and 399
+      and disposition = 'ANSWERED') as Q
      group by h;";
     end
      @calls = CDR::Call.find_by_sql(query)
