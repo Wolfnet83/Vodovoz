@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(:version => 20121108103116) do
   create_table "clients", :force => true do |t|
     t.string "company",      :limit => 70, :null => false
     t.string "phone_number", :limit => 20, :null => false
-    t.string "contact",      :limit => 70, :null => false
   end
 
   create_table "users", :force => true do |t|

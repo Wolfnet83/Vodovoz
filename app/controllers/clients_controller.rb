@@ -2,7 +2,7 @@
   before_filter :authenticate_user!
   def index
     by_field = params[:sort_by] || "id"
-    @clients = Client.order("#{by_field} #{params[:dir]}" )
+    @clients = Client.order("#{by_field} #{params[:dir]}" ).page params[:page]
    # @clients = Client.all
   end
 
