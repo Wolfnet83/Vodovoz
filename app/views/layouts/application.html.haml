@@ -5,8 +5,8 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body
-    .navbar.navbar-default.navbar-fixed-top
+  %body{:style =>"padding-top = 70px"}
+    .navbar.navbar-static-top
       .navbar-inner
         .container
           %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
