@@ -290,5 +290,5 @@ DEPENDENCIES
   spork
   sqlite3
   therubyracer
-  twitter-bootstrap-rails
+  twitter-bootstrap-rails (~> 2.2.8)
   uglifier (>= 2.2.1)
