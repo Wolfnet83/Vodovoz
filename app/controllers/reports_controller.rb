@@ -9,7 +9,7 @@
     @date_to = params[:to].presence || t
     @call_duration = params[:duration].presence || 60
     group_by = params[:group_by] || "date(calldate)"
-    @calls = CDR::Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=111 AND billsec>?",@date_from,@date_to,@call_duration).count(:src, :group => "#{group_by}")
+    @calls = Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=111 AND billsec>?",@date_from,@date_to,@call_duration).count(:src, :group => "#{group_by}")
   end
 
   def main_report
@@ -98,11 +98,11 @@
       and disposition = 'ANSWERED') as Q
      group by h;";
     end
-     @calls = CDR::Call.find_by_sql(query)
+     @calls = Call.find_by_sql(query)
   end
 
   def operator
-    @calls_in = CDR::Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=? and disposition = 'ANSWERED'", params[:date_from], params[:date_to], params[:op_number]).count
-    @calls_out = CDR::Call.where("date(calldate)>=? AND date(calldate)<=? AND src=?", params[:date_from], params[:date_to], params[:op_number]).count
+    @calls_in = Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=? and disposition = 'ANSWERED'", params[:date_from], params[:date_to], params[:op_number]).count
+    @calls_out = Call.where("date(calldate)>=? AND date(calldate)<=? AND src=?", params[:date_from], params[:date_to], params[:op_number]).count
   end
 end
