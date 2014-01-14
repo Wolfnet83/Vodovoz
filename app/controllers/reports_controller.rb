@@ -24,6 +24,7 @@
       select hour(A.calldate) as h,1 as c1, 0 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as A
       where date(A.calldate)=\'#{@date}\' AND hour(A.calldate) BETWEEN '8' AND '17'
+      and duration>0
       and dst =111
      union all
       select hour(calldate) as h,0 as c1,1 as c2,0 as c3
@@ -49,6 +50,7 @@
       where week(A.calldate,1)=week(\'#{@date}\',1)
       and year(A.calldate)=year(\'#{@date}\')
       AND hour(A.calldate) BETWEEN '8' AND '17'
+      and duration>0
       and dst =111
      union all
       select day(C.calldate) as h,0 as c1,1 as c2,0 as c3
@@ -78,6 +80,7 @@
       where year(A.calldate)=year(\'#{@date}\')
       AND hour(A.calldate) BETWEEN '8' AND '17'
       AND dayofweek(A.calldate) <> '1'
+      and duration>0
       and dst =111
      union all
       select month(C.calldate) as h,0 as c1,1 as c2,0 as c3

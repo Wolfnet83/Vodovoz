@@ -9,7 +9,7 @@ class MissedCallsController < ApplicationController
 
     query = " select calldate,src,billsec from asteriskcdrdb.cdr where dst=111 
     and hour(calldate)=#{@hour} and date(calldate)=\"#{@date}\" and
-    dstchannel=''" 
+    dstchannel='' and duration > 0" 
     @calls = Call.find_by_sql(query) 
   end 
 end
