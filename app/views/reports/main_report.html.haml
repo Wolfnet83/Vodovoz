@@ -1,6 +1,7 @@
 = form_tag '/reports/main_report',:class => "well form-inline" do
   %p.lead
     Внимание! В отчете учитываются только звонки совершенные в период с 8:00 до 18:00, в рабочие дни.
+    Непринятые звонки продолжительностью до 10 секунд - не учитываются.
   = label_tag(:date, "Дата", :class => "span3")
   = text_field_tag(:date, @date)
   .row
