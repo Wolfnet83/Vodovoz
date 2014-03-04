@@ -22,7 +22,7 @@
       %th.span1 Продолжительность
       %th Запись
   - @calls.each do |call|
-    %tr{:class => " #{call.disposition == "ANSWERED" ?"success":"error"}"}
+    %tr{:class => " #{call.linkname == "Прослушать" ?"success":"error"}"}
       %td= call.calldate
       %td= call.clid
       %td= call.dst

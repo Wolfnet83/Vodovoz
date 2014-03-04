@@ -32,6 +32,7 @@ group :development, :test do
   gem 'guard-rspec', "~> 0.7.0"
   gem 'html2haml'
   gem 'erb2haml'
+  gem 'pry-rails'
 end
 
 group :test do
@@ -44,6 +45,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'newrelic_rpm'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -54,7 +57,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano', '~>2.15'
+gem 'capistrano', '~> 2.15'
 
 gem 'devise'
 gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"

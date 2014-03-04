@@ -2,7 +2,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
 
-  config.secret_key = 'InoxIgen'
+  config.secret_key = 'dmfdpm3o2i93829k23iaqw12er4'
 
   # ==> LDAP Configuration 
   # config.ldap_logger = true

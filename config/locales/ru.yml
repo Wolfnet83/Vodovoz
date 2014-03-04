@@ -15,4 +15,11 @@ ru:
           attributes:
             email:
               blank: "Почтовый адрес пуст"
+  views:
+    pagination:
+      first: "Первая"
+      last: "Последняя"
+      previous: "Назад"
+      next: "Вперед"
+      truncate: "..."
             
