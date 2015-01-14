@@ -62,6 +62,7 @@ gem 'capistrano', '~> 2.15'
 gem 'devise'
 gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"
 gem 'net-ldap'
+gem 'net-ssh', '~>2.8.1', :git => "https://github.com/net-ssh/net-ssh"
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'haml-rails'
