@@ -17,25 +17,28 @@
     @date = params[:date].presence || t
     group_by = params[:group_by] || "day"
 
-    if group_by == "day"  
+    if group_by == "day"
       @date_column = "Час"
     query ="select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
     from(
       select hour(A.calldate) as h,1 as c1, 0 as c2,0 as c3
       from `asteriskcdrdb`.`cdr` as A
-      where date(A.calldate)=\'#{@date}\' AND hour(A.calldate) BETWEEN '8' AND '17'
+      where (A.calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\')+ INTERVAL 1 DAY)
+      AND hour(A.calldate) BETWEEN '8' AND '17'
       and (duration>10 or dstchannel<>'')
       and dst =111
      union all
       select hour(calldate) as h,0 as c1,1 as c2,0 as c3
       from `asteriskcdrdb`.`cdr`
-      where date(calldate)=\'#{@date}' AND hour(calldate) BETWEEN '8' AND '17'
+      where (calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\')+ INTERVAL 1 DAY)
+      AND hour(calldate) BETWEEN '8' AND '17'
       and src between 300 and 399
       and (dcontext = 'vodovoz-department' or dcontext = 'from-internal')
      union all
       select hour(B.calldate) as h,0 as c1,0 as c2,1 as c3
       from `asteriskcdrdb`.`cdr` as B
-      where date(B.calldate)=\'#{@date}\' AND hour(B.calldate) BETWEEN '8' AND '17'
+      where (B.calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\')+ INTERVAL 1 DAY)
+      AND hour(B.calldate) BETWEEN '8' AND '17'
       and dst between 300 and 399
       and src not between 300 and 399
       and disposition = 'ANSWERED') as Q
@@ -70,7 +73,7 @@
       and src not between 300 and 399
       and disposition = 'ANSWERED') as Q
      group by h;"
-    else 
+    else
       @date_column = "Месяц"
     query ="
     select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
@@ -107,5 +110,17 @@
   def operator
     @calls_in = Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=? and disposition = 'ANSWERED'", params[:date_from], params[:date_to], params[:op_number]).count
     @calls_out = Call.where("date(calldate)>=? AND date(calldate)<=? AND src=?", params[:date_from], params[:date_to], params[:op_number]).count
+  end
+
+  def unanswered_calls
+    missed_calls = Call.where("calldate BETWEEN DATE(?) AND DATE(?) + INTERVAL 1 DAY
+                                AND dst='111' and dstchannel=''", params[:date], params[:date])
+    @unrepeated_calls = []
+    missed_calls.each do |call|
+      repeated_call = Call.where("calldate > ?
+                                AND calldate < DATE(? + INTERVAL 1 DAY)
+                                AND (src=? or dst like ?)", call.calldate, call.calldate, call.src, call.src)
+      @unrepeated_calls << call unless repeated_call.presence
+    end
   end
 end

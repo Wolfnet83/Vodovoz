@@ -1,0 +1,20 @@
+= form_tag '/reports/unanswered_calls',:class => "well form-inline" do
+  = label_tag(:date, "Введите дату", :class => "span3")
+  = text_field_tag(:date, @date)
+  %br/
+  = submit_tag("Выбрать", :class => 'btn')
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Дата
+      %th Кто звонил
+      %th Продолжительность звонка
+  - if @unrepeated_calls
+    - @unrepeated_calls.each do |call|
+      %tr
+        %td
+          = call.calldate
+        %td
+          = call.src
+        %td
+          = call.duration
