@@ -119,7 +119,7 @@
     missed_calls.each do |call|
       repeated_call = Call.where("calldate > ?
                                 AND calldate < DATE(? + INTERVAL 1 DAY)
-                                AND (src=? or dst like ?)", call.calldate, call.calldate, call.src, call.src)
+                                AND (src=? or dst=9#{call.src})", call.calldate, call.calldate, call.src)
       @unrepeated_calls << call unless repeated_call.presence
     end
   end
