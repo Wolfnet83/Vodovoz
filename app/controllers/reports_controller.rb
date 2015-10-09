@@ -39,8 +39,7 @@
       from `asteriskcdrdb`.`cdr` as B
       where (B.calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\')+ INTERVAL 1 DAY)
       AND hour(B.calldate) BETWEEN '8' AND '17'
-      and dst between 300 and 399
-      and src not between 300 and 399
+      and (dst = 111 and dstchannel<>'')
       and disposition = 'ANSWERED') as Q
      group by h"
     elsif group_by == "week"
@@ -69,8 +68,7 @@
       where week(B.calldate,1)=week(\'#{@date}\',1)
       and year(B.calldate)=year(\'#{@date}\')
       AND hour(B.calldate) BETWEEN '8' AND '17'
-      and dst between 300 and 399
-      and src not between 300 and 399
+      and (dst = 111 and dstchannel<>'')
       and disposition = 'ANSWERED') as Q
      group by h;"
     else
@@ -99,8 +97,7 @@
       where year(B.calldate)=year(\'#{@date}\')
       AND hour(B.calldate) BETWEEN '8' AND '17'
       AND dayofweek(B.calldate) <> '1'
-      and dst between 300 and 399
-      and src not between 300 and 399
+      and (dst = 111 and dstchannel<>'')
       and disposition = 'ANSWERED') as Q
      group by h;";
     end
