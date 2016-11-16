@@ -20,3 +20,4 @@
 #Ignore swp files of vim
 *.swp
 *.swo
+/public/*

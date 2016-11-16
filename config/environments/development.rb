@@ -8,7 +8,7 @@ Vodovoz::Application.configure do
 
   # Log error messages when you accidentally call methods on nil.
   #config.whiny_nils = true
-  
+
   config.eager_load = false
 
   # Show full error reports and disable caching
@@ -24,12 +24,12 @@ Vodovoz::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-
-  # Do not compress assets
-  config.assets.compress = false
-
-  # Expands the lines which load the assets
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
   config.assets.debug = true
+
+  # Suppress logger output for asset requests.
+  config.assets.quiet = false
+  
 end

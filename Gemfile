@@ -1,68 +1,55 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 5.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'mysql2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'dynamic_form'
-gem 'less-rails'
-# Gems used only for assets and not required
-# in production environments by default.
-gem 'sass-rails',   '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer'
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
-gem 'uglifier', '>= 2.2.1'
-gem 'jquery-ui-rails'
-
-gem 'protected_attributes'
-gem 'rails-observers'
-gem 'actionpack-page_caching'
-gem 'actionpack-action_caching'
-
-group :development, :test do
-  gem 'rspec-rails', "~> 2.14.0"
-  gem 'factory_girl_rails', "~> 4.2.1"
-  gem 'guard-rspec', "~> 0.7.0"
-  gem 'html2haml'
-  gem 'erb2haml'
-  gem 'pry-rails'
-end
-
-group :test do
-  gem 'faker', "~> 1.2.0"
-  gem 'capybara', "~> 2.1.0"
-  gem 'database_cleaner', "~> 1.1.1"
-  gem 'launchy', "~> 2.1.0"
-  gem 'spork'
-end
+# gem 'dynamic_form'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'newrelic_rpm'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
-gem 'capistrano', '~> 2.15'
+gem 'capistrano'
 
 gem 'devise'
 gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git"
 gem 'net-ldap'
-gem 'net-ssh', '~>2.8.1', :git => "https://github.com/net-ssh/net-ssh"
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-gem 'haml-rails'
+gem 'net-ssh'
+
+gem 'puma'
+
+# Gems used only for assets and not required
+# in production environments by default.
+gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.3.6'
+
+gem 'coffee-rails'
+
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+
+gem 'haml-rails', "~> 0.9"
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec'
+  gem 'pry-rails'
+end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'spork'
+end
