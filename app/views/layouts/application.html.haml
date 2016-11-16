@@ -1,27 +1,14 @@
 !!!
 %html
   %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
     %title= @title
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .navbar.navbar-default
-      .navbar-inner
-        .container
-          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand{:href => "#"} Водовоз
-          .nav-collapse
-            %ul.nav.navbar-nav
-              %li= link_to "Таблица звонков",calls_path
-              %li= link_to "Отчеты", reports_path
-              %li= link_to "Справочник клиентов", clients_path
-              %li= link_to "Пропущенные звонки", missed_calls_path
-            %ul.nav.pull-right
-              %li= render 'devise/menu/login_items'
+    = render 'shared/navbar_top'
     .container
       .row
         #flash_errors.text-error

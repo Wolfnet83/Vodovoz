@@ -1,6 +1,6 @@
 class Call < ActiveRecord::Base
   self.abstract_class = true
-  establish_connection 'asterisk'
+  establish_connection(:asterisk)
   self.table_name = "cdr"
   attr_accessor :link, :linkname
   scope :main, -> (date_from, date_to) {where("(calldate >= ? and calldate <= ? + INTERVAL 1 DAY)
