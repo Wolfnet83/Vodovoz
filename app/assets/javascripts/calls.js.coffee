@@ -4,8 +4,10 @@
 
 jQuery ->
   $('#call_from').datepicker
-        dateFormat: $.datepicker.ISO_8601, 
-        firstDay:1
+        dateFormat: $.datepicker.ISO_8601,
+        firstDay:1,
+        inline: true,
+        language: 'ru'
   $('#call_to').datepicker
-        dateFormat: $.datepicker.ISO_8601, 
+        dateFormat: $.datepicker.ISO_8601,
         firstDay:1
