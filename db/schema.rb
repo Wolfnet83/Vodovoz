@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -9,51 +8,45 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108103116) do
+ActiveRecord::Schema.define(version: 20161117071232) do
 
-  create_table "cdr", :id => false, :force => true do |t|
-    t.datetime "calldate",                                  :null => false
-    t.string   "clid",        :limit => 80, :default => "", :null => false
-    t.string   "src",         :limit => 80, :default => "", :null => false
-    t.string   "dst",         :limit => 80, :default => "", :null => false
-    t.string   "dcontext",    :limit => 80, :default => "", :null => false
-    t.string   "channel",     :limit => 80, :default => "", :null => false
-    t.string   "dstchannel",  :limit => 80, :default => "", :null => false
-    t.string   "lastapp",     :limit => 80, :default => "", :null => false
-    t.string   "lastdata",    :limit => 80, :default => "", :null => false
-    t.integer  "duration",                  :default => 0,  :null => false
-    t.integer  "billsec",                   :default => 0,  :null => false
-    t.string   "disposition", :limit => 45, :default => "", :null => false
-    t.integer  "amaflags",                  :default => 0,  :null => false
-    t.string   "accountcode", :limit => 20, :default => "", :null => false
-    t.string   "uniqueid",    :limit => 32, :default => "", :null => false
-    t.string   "userfield",                 :default => "", :null => false
+  create_table "Workers", primary_key: "idWorkers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "Name",  limit: 300
+    t.string "Phone", limit: 5
   end
 
-  create_table "clients", :force => true do |t|
-    t.string "company",      :limit => 70, :null => false
-    t.string "phone_number", :limit => 20, :null => false
+  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "company",      limit: 45, collation: "latin1_swedish_ci"
+    t.string "phone_number", limit: 45, collation: "latin1_swedish_ci"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+  create_table "search_requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "username"
+    t.string   "user_phone"
+    t.string   "client_name"
+    t.string   "client_phone"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["id"], name: "index_search_requests_on_id", using: :btree
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "username"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

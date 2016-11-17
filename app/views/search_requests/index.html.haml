@@ -1,0 +1,18 @@
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Оператор
+      %th Номер оператора
+      %th Клиент
+      %th Номер клиента
+      %th Действия
+  - @search_requests.each do |sr|
+    %tr
+      %td= sr.username
+      %td= sr.user_phone
+      %td= sr.client_name
+      %td= sr.client_phone
+      %td
+        = link_to "Найти", calls_search_by_request_path(call_from: @date_from,
+                                            call_to: @date_to,
+                                            phone: sr.client_phone)

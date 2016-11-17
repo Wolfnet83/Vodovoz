@@ -2,7 +2,6 @@
   before_action :authenticate_user!
 
   def index
-
     @title = "Таблица звонков"
     t = Date.today.to_formatted_s(:db)
     @date_from = params[:call_from].presence || t
@@ -12,6 +11,24 @@
 
     @calls=Call.main(@date_from, @date_to).source(@src).dest(@dst).page params[:page]
 
+    create_records_links
+  end
+
+  def search_by_request
+    @title = "Найденные звонки"
+    @date_from = params[:call_from].presence || t
+    @date_to = params[:call_to].presence || t
+    @phone = '%'+params[:phone]
+    @calls=Call.main(@date_from, @date_to)
+               .where("src LIKE ? or dst LIKE ?", @phone, @phone)
+               .order(calldate: :desc)
+              #  .page params[:page]
+
+    create_records_links
+  end
+
+  private
+  def create_records_links
     @calls.each do |call|
       if call.disposition == "ANSWERED" and !call.userfield.empty? then
           call.link = "http://10.0.0.203/maint/cache/monitor/"+call.userfield
