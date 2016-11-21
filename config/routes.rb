@@ -49,13 +49,12 @@ Vodovoz::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
     get "calls/search_by_request"
-    
+
     resources :clients
     resources :reports
     resources :calls
     resources :missed_calls
-
-    get "search_requests/index"
+    resources :search_requests
 
 
   # Sample resource route with options:

@@ -18,11 +18,12 @@
     @title = "Найденные звонки"
     @date_from = params[:call_from].presence || t
     @date_to = params[:call_to].presence || t
-    @phone = '%'+params[:phone]
-    @calls=Call.main(@date_from, @date_to)
-               .where("src LIKE ? or dst LIKE ?", @phone, @phone)
+    @phone = params[:phone]
+    
+    @calls = Call.main(@date_from, @date_to)
+               .where("src = ? or dst = ?", @phone, '9' + @phone)
+               .where("disposition = 'answered'")
                .order(calldate: :desc)
-              #  .page params[:page]
 
     create_records_links
   end

@@ -21,6 +21,7 @@
       %th Куда звонил
       %th Статус
       %th.span1 Продолжительность
+      %th.span1 Разговор
       %th Запись
   - @calls.each do |call|
     %tr{:class => " #{call.linkname == "Прослушать" ? "success":"danger"}"}
@@ -29,5 +30,6 @@
       %td= call.dst
       %td= call.disposition
       %td= call.duration
+      %td= call.billsec
       %td= link_to call.linkname, call.link
 = paginate @calls, theme: "twitter-bootstrap-3"

@@ -16,3 +16,4 @@
         = link_to "Найти", calls_search_by_request_path(call_from: @date_from,
                                             call_to: @date_to,
                                             phone: sr.client_phone)
+        =link_to "Delete", search_request_path(sr.id), method: :delete
