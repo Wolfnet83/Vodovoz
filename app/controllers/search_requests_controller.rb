@@ -23,6 +23,6 @@ class SearchRequestsController < ApplicationController
 
   private
   def permitted_params
-    params[:search_request].permit(:username, :user_phone, :client_name, :client_phone)
+    params.permit(:username, :user_phone, :client_name, :client_phone)
   end
 end

@@ -9,7 +9,7 @@
     @date_to = params[:to].presence || t
     @call_duration = params[:duration].presence || 60
     group_by = params[:group_by] || "date(calldate)"
-    @calls = Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=111 AND billsec>?",@date_from,@date_to,@call_duration).count(:src, :group => "#{group_by}")
+    @calls = Call.where("(calldate >= ? AND calldate <= ? + INTERVAL 1 DAY) AND dst=111 AND billsec>?",@date_from,@date_to,@call_duration).group(group_by).count(:src)
   end
 
   def main_report
@@ -105,8 +105,16 @@
   end
 
   def operator
-    @calls_in = Call.where("date(calldate)>=? AND date(calldate)<=? AND dst=? and disposition = 'ANSWERED'", params[:date_from], params[:date_to], params[:op_number]).count
-    @calls_out = Call.where("date(calldate)>=? AND date(calldate)<=? AND src=?", params[:date_from], params[:date_to], params[:op_number]).count
+    @title = 'Отчет по звонкам по оператору'
+    t = Time.now.strftime("%Y-%m-%d")
+    @date_from = params[:date_from].presence || t
+    @date_to = params[:date_to].presence || t
+    date_to = (@date_to.to_date + 1.day).to_s
+    if params[:op_number].presence
+      @calls_in = Call.where(calldate: @date_from..date_to, dst: params[:op_number], disposition: "ANSWERED").count
+      @calls_out = Call.where(calldate: @date_from..date_to, src: params[:op_number]).count
+      @calls_out_res = Call.where(calldate: @date_from..date_to, src: params[:op_number], disposition: "ANSWERED").count
+    end
   end
 
   def unanswered_calls

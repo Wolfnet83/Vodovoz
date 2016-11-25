@@ -1,19 +1,21 @@
 = form_tag '/reports/operator',:class => "well form-inline" do
-  = label_tag(:date_from, "Начало периода", :class => "span3")
-  = text_field_tag(:date_from, @date_from)
-  %br/
-  = label_tag(:date_to, "Конец периода", :class => "span3")
-  = text_field_tag(:date_to, @date_to)
-  %br/
-  = label_tag(:op_number, "Номер оператора", :class => "span3")
-  = text_field_tag(:op_number, @op_number)
-  = submit_tag("Выбрать", :class => 'btn')
+  .form-group
+    = label_tag :date_from, "Начало периода", :class => "span3"
+    = text_field_tag :date_from, @date_from, class: "form-control"
+    = label_tag :date_to, "Конец периода", :class => "span3"
+    = text_field_tag :date_to, @date_to, class: "form-control"
+  .form-group
+    = label_tag :op_number, "Номер оператора", :class => "span3"
+    = text_field_tag :op_number, @op_number, class: "form-control"
+  = submit_tag("Выбрать", :class => 'btn btn-default')
 %table.table.table-striped.table-bordered.table-condensed
   %thead
-    %th Всего звонков
     %th Принятых звонков
-    %th Сделанных звонков
+    %th Исходящих звонков
+    %th Исходящих результативных звонков
+    %th Всего звонков
   %tr
-    %td= @calls_in + @calls_out
     %td= @calls_in
     %td= @calls_out
+    %td= @calls_out_res
+    %td= @calls_in + @calls_out if @calls_in.presence && @calls_out.presence

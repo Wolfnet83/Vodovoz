@@ -19,7 +19,7 @@
     @date_from = params[:call_from].presence || t
     @date_to = params[:call_to].presence || t
     @phone = params[:phone]
-    
+
     @calls = Call.main(@date_from, @date_to)
                .where("src = ? or dst = ?", @phone, '9' + @phone)
                .where("disposition = 'answered'")
@@ -35,7 +35,7 @@
           call.link = "http://10.0.0.203/maint/cache/monitor/"+call.userfield
           call.linkname = "Прослушать"
         else
-          call.link = "No record"
+          call.link = ""
           call.linkname = "Нет записи"
       end
     end
