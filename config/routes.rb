@@ -26,8 +26,10 @@ Vodovoz::Application.routes.draw do
   post "reports/operator"
 
   get "reports/unanswered_calls"
-
   post "reports/unanswered_calls"
+
+  get "reports/missed_calls"
+  post "reports/missed_calls"
 
   get   "calls/index"
 
@@ -53,7 +55,6 @@ Vodovoz::Application.routes.draw do
     resources :clients
     resources :reports
     resources :calls
-    resources :missed_calls
     resources :search_requests
 
 

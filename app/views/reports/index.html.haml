@@ -1,9 +1,8 @@
-%h1 Список отчетов
-%p.text-left
-  = link_to 'Отчет по входящим звонкам', reports_incoming_calls_path
-%p.text-left
-  = link_to 'Основной отчет по звонкам', reports_main_report_path
-%p.text-left
-  = link_to 'Отчет по оператору', reports_operator_path
-%p.text-left
-  = link_to 'Совсем пропущенные звонки', reports_unanswered_calls_path
+.col-md-6.col-md-offset-2
+  %h1 Отчеты
+  .list-group
+    = link_to 'Основной отчет по звонкам', reports_main_report_path, class: "list-group-item"
+    = link_to 'Отчет по входящим звонкам', reports_incoming_calls_path, class: "list-group-item"
+    = link_to 'Отчет по оператору', reports_operator_path, class: "list-group-item"
+    = link_to 'Пропущенные звонки по дате', reports_unanswered_calls_path, class: "list-group-item"
+    = link_to 'Пропущенные звонки за сегодня по часам', reports_missed_calls_path, class: "list-group-item"

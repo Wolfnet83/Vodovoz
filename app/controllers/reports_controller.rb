@@ -1,6 +1,7 @@
 ﻿class ReportsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   def index
+    @title = "Отчеты"
   end
 
   def incoming_calls
@@ -115,6 +116,21 @@
       @calls_out = Call.where(calldate: @date_from..date_to, src: params[:op_number]).count
       @calls_out_res = Call.where(calldate: @date_from..date_to, src: params[:op_number], disposition: "ANSWERED").count
     end
+  end
+
+  def missed_calls
+    @title = "Пропущенные звонки"
+    t = Time.now.strftime("%Y-%m-%d")
+    h = Time.now.hour
+    @date = params[:date].presence || t
+    @hour = params[:hour].presence || h
+    time = @date.to_date + @hour.to_i.hours
+
+    @calls = Call.select(:calldate, :src, :billsec)
+                 .where(dst: '111', dstchannel: '' )
+                 .where(calldate: time.to_s..time.end_of_hour.to_s)
+                 .where('duration > 0')
+
   end
 
   def unanswered_calls
