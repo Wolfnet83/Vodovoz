@@ -5,6 +5,7 @@
   end
 
   def incoming_calls
+    @title = "Отчет по входящим звонкам"
     t = Time.now.strftime("%Y-%m-%d")
     @date_from = params[:from].presence || t
     @date_to = params[:to].presence || t
@@ -14,6 +15,7 @@
   end
 
   def main_report
+    @title = "Основной отчет"
     t = Time.now.strftime("%Y-%m-%d")
     @date = params[:date].presence || t
     group_by = params[:group_by] || "day"
@@ -113,8 +115,12 @@
     date_to = (@date_to.to_date + 1.day).to_s
     if params[:op_number].presence
       @calls_in = Call.where(calldate: @date_from..date_to, dst: params[:op_number], disposition: "ANSWERED").count
-      @calls_out = Call.where(calldate: @date_from..date_to, src: params[:op_number]).count
-      @calls_out_res = Call.where(calldate: @date_from..date_to, src: params[:op_number], disposition: "ANSWERED").count
+      @calls_out = Call.where(calldate: @date_from..date_to, src: params[:op_number])
+                       .where("dst <> \'*78\' AND dst <> \'*79\'")
+                       .count
+      @calls_out_res = Call.where(calldate: @date_from..date_to, src: params[:op_number], disposition: "ANSWERED")
+                           .where("dst <> \'*78\' AND dst <> \'*79\'")
+                           .count
     end
   end
 
@@ -128,20 +134,30 @@
 
     @calls = Call.select(:calldate, :src, :billsec)
                  .where(dst: '111', dstchannel: '' )
-                 .where(calldate: time.to_s..time.end_of_hour.to_s)
+                 .where("calldate >= ? and calldate <= ?", time.to_s, time.end_of_hour.to_s)
                  .where('duration > 0')
 
   end
 
   def unanswered_calls
-    missed_calls = Call.where("calldate BETWEEN DATE(?) AND DATE(?) + INTERVAL 1 DAY
-                                AND dst='111' and dstchannel=''", params[:date], params[:date])
-    @unrepeated_calls = []
-    missed_calls.each do |call|
-      repeated_call = Call.where("calldate > ?
-                                AND calldate < DATE(? + INTERVAL 1 DAY)
-                                AND (src=? or dst=9#{call.src})", call.calldate, call.calldate, call.src)
-      @unrepeated_calls << call unless repeated_call.presence
-    end
+    @title = "Пропущенные звонки без ответа"
+    t = Time.now.strftime("%Y-%m-%d")
+    @date = params[:date].presence || t
+    query = "SELECT * FROM asteriskcdrdb.cdr AS a WHERE
+            calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\') + INTERVAL 1 DAY
+            AND (dst='111' AND dstchannel='')
+              AND src NOT IN (
+              SELECT src FROM asteriskcdrdb.cdr WHERE
+              (calldate BETWEEN a.calldate AND a.calldate + INTERVAL 1 DAY)
+              AND (dst <> '111' and disposition='ANSWERED')
+              )
+              AND CONCAT(9,src) NOT IN (
+              SELECT dst FROM asteriskcdrdb.cdr WHERE
+              (calldate > a.calldate AND calldate < a.calldate + INTERVAL 1 DAY)
+              AND (dst <> '111' AND disposition='ANSWERED')
+              AND (dst NOT BETWEEN 300 AND 399)
+              ) "
+
+    @unrepeated_calls = Call.find_by_sql(query)
   end
 end

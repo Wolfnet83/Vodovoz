@@ -2,9 +2,11 @@ class SearchRequestsController < ApplicationController
   before_action :authenticate_user!, :except => [:create]
 
   def index
+    @title = "Поисковые запросы за сегодня"
     @date_from = (Date.today - 1.months).to_formatted_s(:db)
     @date_to = Date.today.to_formatted_s(:db)
-    @search_requests = SearchRequest.order(id: :desc)
+    @search_requests = SearchRequest.where("DATE(created_at) = ?",  Date.today)
+                                    .order(id: :desc)
   end
 
   def create

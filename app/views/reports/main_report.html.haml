@@ -1,19 +1,20 @@
-= form_tag '/reports/main_report',:class => "well form-inline" do
+.well.well-sm.text-center
+  %h2=@title
+= form_tag '/reports/main_report',:class => "well form-vertical" do
   %p.lead
     Внимание! В отчете учитываются только звонки совершенные в период с 8:00 до 18:00, в рабочие дни.
     Непринятые звонки продолжительностью до 10 секунд - не учитываются.
-  = label_tag(:date, "Дата", :class => "span3")
-  = text_field_tag(:date, @date)
-  .row
-    = label_tag(:monthly, "Месячная группировка", :class => "span4")
-    = radio_button_tag(:group_by, "month", :class => "span2")
-  .row
-    = label_tag(:weekly, "Просмотр недели", :class => "span4")
-    = radio_button_tag(:group_by, "week", :class => "span2")
-  .row
-    = label_tag(:daily, "Просмотр дня по часам", :class => "span4")
-    = radio_button_tag(:group_by, "day", :class => "span2")
-  = submit_tag("Выбрать", :class => 'btn')
+  .form-group
+    = label_tag :date, "Дата"
+    = text_field_tag :date, @date, class: "form-control"
+    = radio_button_tag :group_by, "month", class: "form-control"
+    %span Просмотр по месяцам
+    = radio_button_tag :group_by, "week", class: "form-control"
+    %span Просмотр по неделям
+    = radio_button_tag :group_by, "day", class: "form-control"
+    %span Просмотр по часам
+  = submit_tag "Выбрать", class: 'btn btn-default'
+
 %table.table.table-striped.table-bordered.table-condensed
   %thead
     %th= @date_column
