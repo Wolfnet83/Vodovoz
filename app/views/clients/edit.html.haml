@@ -1,8 +1,9 @@
-= form_for (@client) do |client|
-  = client.label "Компания"
-  = client.text_field :company
-  = client.label "Номер телефона"
-  = client.text_field :phone_number
-  = client.label "Контактное лицо"
-  = client.text_field :contact
-  = client.submit :class => "btn"
+= form_for @client, class: "form form-vertical" do |client|
+  .form-group
+    = client.label "Компания"
+    = client.text_field :company, class: "form-control"
+  .form-group
+    = client.label "Номер телефона"
+    = client.text_field :phone_number, class: "form-control"
+  .form-group
+  = client.submit :class => "btn btn-default"

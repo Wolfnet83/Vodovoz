@@ -10,7 +10,7 @@
     = text_field_tag(:src, @src)
     = label_tag(:dst, "Куда звонил", :class => "span3")
     = text_field_tag(:dst, @dst)
-  = submit_tag("Выбрать", :class => 'btn')
+  = submit_tag("Выбрать", :class => 'btn btn-default')
 = paginate @calls, theme: "twitter-bootstrap-3"
 
 %table.table.table-striped.table-bordered.table-condensed
