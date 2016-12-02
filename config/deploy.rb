@@ -6,6 +6,9 @@ set :repo_url, "git@github.com:Wolfnet83/Vodovoz.git"
 
 set :user, "deployer"
 set :deploy_to, "/home/deployer/vodovoz"
+set :linked_files, %w{config/database.yml config/ldap.yml}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets}
+
 
 
 # after "deploy:finalize_update", "deploy:symlink_config"

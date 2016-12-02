@@ -31,5 +31,5 @@
       %td= call.disposition
       %td= call.duration
       %td= call.billsec
-      %td= link_to call.linkname, call.link
+      %td= link_to call.linkname, call.link, target: :_blanc
 = paginate @calls, theme: "twitter-bootstrap-3"
