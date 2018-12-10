@@ -28,7 +28,7 @@
       from `asteriskcdrdb`.`cdr` as A
       where (A.calldate BETWEEN DATE(\'#{@date}\') AND DATE(\'#{@date}\')+ INTERVAL 1 DAY)
       AND hour(A.calldate) BETWEEN '8' AND '17'
-      and (duration>10 or dstchannel<>'')
+      and (duration>25 or dstchannel<>'')
       and dst =111
      union all
       select hour(calldate) as h,0 as c1,1 as c2,0 as c3
@@ -55,7 +55,7 @@
       where week(A.calldate,1)=week(\'#{@date}\',1)
       and year(A.calldate)=year(\'#{@date}\')
       AND hour(A.calldate) BETWEEN '8' AND '17'
-      and (duration>10 or dstchannel<>'')
+      and (duration>25 or dstchannel<>'')
       and dst =111
      union all
       select day(C.calldate) as h,0 as c1,1 as c2,0 as c3
@@ -84,7 +84,7 @@
       where year(A.calldate)=year(\'#{@date}\')
       AND hour(A.calldate) BETWEEN '8' AND '17'
       AND dayofweek(A.calldate) <> '1'
-      and (duration>10 or dstchannel<>'')
+      and (duration>25 or dstchannel<>'')
       and dst =111
      union all
       select month(C.calldate) as h,0 as c1,1 as c2,0 as c3

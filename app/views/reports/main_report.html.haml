@@ -3,7 +3,7 @@
 = form_tag '/reports/main_report',:class => "well form-vertical" do
   %p.lead
     Внимание! В отчете учитываются только звонки совершенные в период с 8:00 до 18:00, в рабочие дни.
-    Непринятые звонки продолжительностью до 10 секунд - не учитываются.
+    Непринятые звонки продолжительностью до 25 секунд - не учитываются.
   .form-group
     = label_tag :date, "Дата"
     = text_field_tag :date, @date, class: "form-control"
