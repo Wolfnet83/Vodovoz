@@ -5,7 +5,7 @@ gem 'rails', '~> 5.0.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.4.10'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 
