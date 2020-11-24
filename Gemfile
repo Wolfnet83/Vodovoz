@@ -20,7 +20,7 @@ gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ld
 gem 'net-ldap'
 gem 'net-ssh'
 
-gem 'puma'
+gem 'puma', '~> 3.7'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -37,9 +37,9 @@ gem 'haml-rails'
 gem 'therubyracer'
 group :development do
   # Deploy with Capistrano
-  gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano-bundler', '~> 1.1'
-  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
 end
 
 group :development, :test do
