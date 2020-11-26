@@ -3,14 +3,14 @@ lock '3.14.1'
 
 set :application, "vodovoz"
 set :repo_url, "git@github.com:Wolfnet83/Vodovoz.git"
+set :puma_threads, [4, 16]
+set :puma_workers, 2
 
 set :user, "deployer"
 set :deploy_to, "/home/deployer/vodovoz"
 set :linked_files, %w{config/database.yml config/ldap.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets}
 
-set :puma_threads, [4, 16]
-set :puma_workers, 2
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
