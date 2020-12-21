@@ -47,62 +47,63 @@
      group by h"
     elsif group_by == "week"
       @date_column = "День недели"
-    query ="
-    select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
-    from(
-     select day(A.calldate) as h,1 as c1, 0 as c2,0 as c3
-      from `asteriskcdrdb`.`cdr` as A
-      where week(A.calldate,1)=week(\'#{@date}\',1)
-      and year(A.calldate)=year(\'#{@date}\')
-      AND hour(A.calldate) BETWEEN '8' AND '17'
-      and (duration>25 or dstchannel<>'')
-      and dst =111
-     union all
-      select day(C.calldate) as h,0 as c1,1 as c2,0 as c3
-      from `asteriskcdrdb`.`cdr` as C
-      where week(C.calldate,1)=week(\'#{@date}\',1)
-      and year(C.calldate)=year(\'#{@date}\')
-      AND hour(C.calldate) BETWEEN '8' AND '17'
-      and src between 300 and 399
-      and (dcontext = 'vodovoz-department' or dcontext='from-internal')
-     union all
-      select day(B.calldate) as h,0 as c1,0 as c2,1 as c3
-      from `asteriskcdrdb`.`cdr` as B
-      where week(B.calldate,1)=week(\'#{@date}\',1)
-      and year(B.calldate)=year(\'#{@date}\')
-      AND hour(B.calldate) BETWEEN '8' AND '17'
-      and (dst = 111 and dstchannel<>'')
-      and disposition = 'ANSWERED') as Q
-     group by h;"
+      date_begin = @date.to_date.beginning_of_week.to_s
+      date_end = @date.to_date.end_of_week.to_s
+      query ="
+      select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
+      from(
+      select day(A.calldate) as h,1 as c1, 0 as c2,0 as c3
+        from `asteriskcdrdb`.`cdr` as A
+        where A.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(A.calldate) BETWEEN '8' AND '17'
+        and (duration>25 or dstchannel<>'')
+        and dst =111
+      union all
+        select day(C.calldate) as h,0 as c1,1 as c2,0 as c3
+        from `asteriskcdrdb`.`cdr` as C
+        where C.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(C.calldate) BETWEEN '8' AND '17'
+        and src between 300 and 399
+        and (dcontext = 'vodovoz-department' or dcontext='from-internal')
+      union all
+        select day(B.calldate) as h,0 as c1,0 as c2,1 as c3
+        from `asteriskcdrdb`.`cdr` as B
+        where B.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(B.calldate) BETWEEN '8' AND '17'
+        and (dst = 111 and dstchannel<>'')
+        and disposition = 'ANSWERED') as Q
+      group by h;"
     else
       @date_column = "Месяц"
-    query ="
-    select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
-    from(
-      select month(A.calldate) as h,1 as c1, 0 as c2,0 as c3
-      from `asteriskcdrdb`.`cdr` as A
-      where year(A.calldate)=year(\'#{@date}\')
-      AND hour(A.calldate) BETWEEN '8' AND '17'
-      AND dayofweek(A.calldate) <> '1'
-      and (duration>25 or dstchannel<>'')
-      and dst =111
-     union all
-      select month(C.calldate) as h,0 as c1,1 as c2,0 as c3
-      from `asteriskcdrdb`.`cdr` as C
-      where year(C.calldate)=year(\'#{@date}\')
-      AND hour(C.calldate) BETWEEN '8' AND '17'
-      AND dayofweek(C.calldate) <> '1'
-      and src between 300 and 399
-      and (dcontext = 'vodovoz-department' or dcontext='from-internal')
-     union all
-      select month(B.calldate) as h,0 as c1,0 as c2,1 as c3
-      from `asteriskcdrdb`.`cdr` as B
-      where year(B.calldate)=year(\'#{@date}\')
-      AND hour(B.calldate) BETWEEN '8' AND '17'
-      AND dayofweek(B.calldate) <> '1'
-      and (dst = 111 and dstchannel<>'')
-      and disposition = 'ANSWERED') as Q
-     group by h;";
+      date_begin = @date.to_date.beginning_of_year.to_s
+      date_end = @date.to_date.end_of_year.to_s
+      query ="
+      select h as 'time',sum(c1)+sum(c2) as 'quantity_all', sum(c1) as quantity_in,sum(c2) as quantity_out, sum(c3) as received, sum(c1)-sum(c3) as missed
+      from(
+        select month(A.calldate) as h,1 as c1, 0 as c2,0 as c3
+        from `asteriskcdrdb`.`cdr` as A
+        where A.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(A.calldate) BETWEEN '8' AND '17'
+        AND dayofweek(A.calldate) <> '1'
+        and (duration>25 or dstchannel<>'')
+        and dst =111
+      union all
+        select month(C.calldate) as h,0 as c1,1 as c2,0 as c3
+        from `asteriskcdrdb`.`cdr` as C
+        where C.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(C.calldate) BETWEEN '8' AND '17'
+        AND dayofweek(C.calldate) <> '1'
+        and src between 300 and 399
+        and (dcontext = 'vodovoz-department' or dcontext='from-internal')
+      union all
+        select month(B.calldate) as h,0 as c1,0 as c2,1 as c3
+        from `asteriskcdrdb`.`cdr` as B
+        where B.calldate BETWEEN \'#{date_begin}\' AND \'#{date_end} 23:59:59\'
+        AND hour(B.calldate) BETWEEN '8' AND '17'
+        AND dayofweek(B.calldate) <> '1'
+        and (dst = 111 and dstchannel<>'')
+        and disposition = 'ANSWERED') as Q
+      group by h;";
     end
      @calls = Call.find_by_sql(query)
   end
