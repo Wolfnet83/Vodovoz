@@ -63,9 +63,9 @@
         ac_month = AggregatedCall.new(calldate: month,
                                     quantity_all: month_calls.sum(:quantity_all),
                                     quantity_in: month_calls.sum(:quantity_in),
-                                    quantity_out: month_calls.sum(:quantity_in),
-                                    received: month_calls.sum(:quantity_in),
-                                    missed: month_calls.sum(:quantity_in))
+                                    quantity_out: month_calls.sum(:quantity_out),
+                                    received: month_calls.sum(:received),
+                                    missed: month_calls.sum(:missed))
         @calls << ac_month
       end
     end
