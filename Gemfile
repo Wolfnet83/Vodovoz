@@ -12,9 +12,6 @@ gem 'bootstrap-kaminari-views'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'newrelic_rpm'
-
-
 gem 'devise'
 gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ldap_authenticatable.git", branch: 'default'
 gem 'net-ldap'
