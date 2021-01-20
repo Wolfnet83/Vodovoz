@@ -22,7 +22,6 @@
 
     @calls = Call.main(@date_from, @date_to)
                .where("src = ? or dst = ?", @phone, '9' + @phone)
-               .where("disposition = 'answered'")
                .order(calldate: :desc)
 
     create_records_links
