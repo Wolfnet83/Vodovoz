@@ -17,7 +17,7 @@ gem "devise_ldap_authenticatable", :git => "git://github.com/cschiewek/devise_ld
 gem 'net-ldap'
 gem 'net-ssh'
 
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 5.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
